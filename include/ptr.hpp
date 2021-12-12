@@ -1,4 +1,5 @@
-// Copyright by Enigma
+// Copyright by MaryMorgan
+
 #ifndef INCLUDE_PTR_HPP_
 #define INCLUDE_PTR_HPP_
 
@@ -20,8 +21,8 @@ class SharedPtr {
   }
 
   explicit SharedPtr(T* pointer){
-    this->counter = new std::atomic_uint;
     this->ptr = pointer;
+    this->counter = new std::atomic_uint;
     *this->counter = 1;
   }
 

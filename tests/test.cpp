@@ -1,12 +1,12 @@
-// Copyright by Enigma
+// Copyright by MaryMorgan
 
 #include <gtest/gtest.h>
 #include "ptr.hpp"
 
-TEST(Example, EmptyTest) {
+TEST(Example, Empty) {
   EXPECT_TRUE(true);
 }
-TEST(Test, Zerro) {
+TEST(Test, Zer) {
   SharedPtr<int> sp;
   EXPECT_EQ((sp),0);
 }
@@ -14,63 +14,59 @@ TEST(Test, UseCount) {
   int val = 5;
   SharedPtr<int> sp1 (&val);
   SharedPtr<int> sp2(sp1);
-  SharedPtr<int> sp3(sp2);
-  EXPECT_EQ(sp1.use_count(),3);
+  EXPECT_EQ(sp1.use_count(),2);
 }
-TEST(Test, Clas_Strelka) {
+TEST(Test, types) {
   class Values{
    public:
-    int val;
+    int value;
   };
-  Values val1;
-  val1.val=20;
-  SharedPtr<Values> sp5(&val1);
-  EXPECT_EQ(sp5->val,20);
+  Values value1;
+  value1.value=20;
+  SharedPtr<Values> sp5(&value1);
+  EXPECT_EQ(sp5->value,20);
 }
-TEST(Test, Zvezda) {
-  int val = 5, val2 = 30;
-  SharedPtr<int> sp1 (&val);
+TEST(Test, Sznach) {
+  int val1 = 6, val2 = 15;
+  SharedPtr<int> sp1 (&val1);
   SharedPtr<int> sp2(sp1);
-  SharedPtr<int> sp3(sp2);
   SharedPtr<int> spoz(&val2);
   std::stringstream str;
-  str<<*sp1<<" "<<*sp2<<" "<<*sp3<<" "<<*spoz;
-  std::string stroka = "5 5 5 30";
+  str<<*sp1<<" "<<*sp2<<" "<<*spoz;
+  std::string stroka = "6 6 15";
   EXPECT_EQ(str.str(), stroka);
 }
 TEST(Test, Get) {
-  int val = 5, val2 = 30;
-  SharedPtr<int> sp1 (&val);
+  int val1 = 6, val2 = 15;
+  SharedPtr<int> sp1 (&val1);
   SharedPtr<int> sp2(sp1);
   SharedPtr<int> sp3(sp2);
   SharedPtr<int> spoz(&val2);
   std::stringstream str, str2;
   str<<*sp1.get()<<" "<<*sp2.get()<<" "<<*sp3.get()<<" "<<*spoz.get();
-  std::string stroka = "5 5 5 30";
+  std::string stroka = "6 6 6 15";
   EXPECT_EQ(str.str(), stroka);
 }
 TEST(Test, Reset) {
-  int val = 5, val2 =30;
-  SharedPtr<int> sp1 (&val);
+  int val1 = 6, val2 =15;
+  SharedPtr<int> sp1 (&val1);
   SharedPtr<int> sp2(sp1);
-  SharedPtr<int> sp3(sp2);
   sp1.reset();
   sp2.reset(&val2);
   std::stringstream str;
   str<<(sp1)<<" "<<*sp2;
-  std::string stroka = "0 30";
+  std::string stroka = "0 15";
   EXPECT_EQ(str.str(), stroka);
 }
 TEST(Test, Swap) {
-  int val = 5, val2 = 30;
-  SharedPtr<int> sp1 (&val);
+  int val1 = 6, val2 = 15;
+  SharedPtr<int> sp1 (&val1);
   SharedPtr<int> sp2(sp1);
-  SharedPtr<int> sp3(sp2);
   SharedPtr<int> spoz(&val2);
   std::stringstream str;
-  str<<*sp3<<" "<<*spoz;
-  sp3.swapPtr(spoz);
-  str<<" "<<*sp3<<" "<<*spoz;
-  std::string stroka = "5 30 30 5";
+  str<<*sp2<<" "<<*spoz;
+  sp2.swapPtr(spoz);
+  str<<" "<<*sp2<<" "<<*spoz;
+  std::string stroka = "6 15 15 6";
   EXPECT_EQ(str.str(), stroka);
 }
